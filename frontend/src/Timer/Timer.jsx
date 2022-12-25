@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './styles.css';
 import {motion, useAnimation } from 'framer-motion';
+import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Timer = () => {
 
@@ -11,7 +13,8 @@ const Timer = () => {
 
   useEffect(() => {
     timerAnimation.start({
-      scale: [1, 0],
+      scale: [1, 0.5],
+      opacity: [1, 0],
       transition: { duration: 1 },
     });
 
@@ -19,7 +22,8 @@ const Timer = () => {
     setTimeout(() => {
       setTimer(timer-1);
       timerAnimation.start({
-        scale: [1, 0],
+        scale: [1, 0.5],
+        opacity: [1, 0],
         transition: { duration: 1 },
       });
     }, 1000);
@@ -28,14 +32,17 @@ const Timer = () => {
     setTimeOut(true);
   }, [timer, timerAnimation]);
 
-  
+
   return (
     <div className='container'>
       {
         timeOut ?
         <motion.h1 className='headline'>Happy New Year</motion.h1>
         :
-        <motion.div className='timer' animate={timerAnimation}>{timer}</motion.div>    
+        <CircularProgressbarWithChildren value={100-timer*10} styles={{path:{
+          stroke: '#C91E1B'}}}>
+          <motion.div className='timer' animate={timerAnimation}>{timer}</motion.div> 
+        </CircularProgressbarWithChildren>         
       }
     </div>
   );
