@@ -18,18 +18,18 @@ const Timer = () => {
       transition: { duration: 1 },
     });
 
-    if(timer>=0)
     setTimeout(() => {
+      if(timer!==0) {
       setTimer(timer-1);
       timerAnimation.start({
         scale: [1, 0.5],
         opacity: [1, 0],
         transition: { duration: 1 },
-      });
-    }, 1000);
-
-    else
-    setTimeOut(true);
+      });}
+      else {
+        setTimeOut(true);
+      }
+    }, 1000); 
   }, [timer, timerAnimation]);
 
 
